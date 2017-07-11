@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { TeacherDashboard } from './components/TeacherDashboard';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from './actions/items.js';
 
 class App extends Component {
+
+  componentDidMount() {
+    if (this.props.items.length === 0) {
+      console.log('in component did mount')
+      this.props.actions.fetchItems()
+    }
+  }
+
   render() {
+
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div id="main" className="main ui">
+          <h1 className="ui dividing centered header">Teacher Dashboard</h1> 
+          <TeacherDashboard />
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  console.log('in map state to props')
+  return {items: state.items}
+}
+
+function mapDispatchToProps(dispatch) {
+  return {actions: bindActionCreators(actions, dispatch)}
+}
+
+export const WrapperApp = connect(mapStateToProps, mapDispatchToProps)(App);
