@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 
 export class Item extends Component {
+	state = {
+		done: false,
+	};
+
 	handleTrashClick = () => {
 		this.props.onTrashClick(this.props.id);
+	};
+
+	handleDoneClick = () => {
+		this.completeItem();
+	};
+
+	completeItem = () => {
+		this.setState({done: true});
 	};
 
 	render() {
@@ -30,8 +42,11 @@ export class Item extends Component {
             </span>
           </div>
         </div>
-        <div className='ui bottom attached green basic button'>
-          Done
+        <div
+        	className='ui bottom attached green basic button'
+        	onClick={this.handleDoneClick}
+        >
+         	{this.state.done ? <i className='checkmark icon' /> : "Done" }
         </div>
       </div>
     );

@@ -11,7 +11,7 @@ export class ItemForm extends Component {
 		this.setState({
 			[name]: value
 		})
-	}
+	};
 
 	handleSubmit = () => {
 		this.props.onFormSubmit({

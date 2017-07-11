@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { EditableItemList } from './EditableItemList';
 import { ToggleableItemForm } from './ToggleableItemForm';
 
-export class TeacherDashboard extends React.Component {
+export class ClassDashboard extends Component {
   state = {
     items: [
       {

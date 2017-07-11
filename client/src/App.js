@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TeacherDashboard } from './components/TeacherDashboard';
+import { ClassDashboard } from './components/ClassDashboard';
+import { NavBar } from './components/NavBar';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions/items.js';
@@ -19,9 +20,10 @@ class App extends Component {
 
     return (
       <div className="App">
+        <NavBar/>
         <div id="main" className="main ui">
-          <h1 className="ui dividing centered header">Teacher Dashboard</h1> 
-          <TeacherDashboard />
+          <h1 className="ui dividing centered header">Class Dashboard</h1> 
+          <ClassDashboard />
         </div>
       </div>
     );
