@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
+import { completeItem, destroyItem } from '../actions/items';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export class Item extends Component {
-	state = {
-		done: false,
-	};
-
+class Item extends Component {
 	handleTrashClick = () => {
-		this.props.onTrashClick(this.props.id);
+		this.props.destroyItem(this.props.id);
 	};
 
 	handleDoneClick = () => {
-		this.completeItem();
-	};
-
-	completeItem = () => {
-		this.setState({done: true});
+		this.props.completeItem(this.props.id);
 	};
 
 	render() {
@@ -30,7 +25,7 @@ export class Item extends Component {
           <div className='extra content'>
             <span
             	className='right floated edit icon'
-            	onClick={this.props.onEditClick}
+            	onClick={this.props.handleEditClick}
             >
               <i className='edit icon' />
             </span>
@@ -52,3 +47,12 @@ export class Item extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    completeItem,
+    destroyItem,
+  }, dispatch);
+};
+
+export const ConnectedItem = connect(null, mapDispatchToProps)(Item);

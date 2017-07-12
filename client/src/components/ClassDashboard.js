@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ConnectedEditableItemList } from './EditableItemList';
 import { ToggleableItemForm } from './ToggleableItemForm';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
 
 export class ClassDashboard extends Component {
 
@@ -11,7 +11,7 @@ export class ClassDashboard extends Component {
   };
 
   handleEditFormSubmit = (attrs) => {
-    this.updateTimer(attrs);
+    this.updateItem(attrs);
   };
 
   handleTrashClick = (itemId) => {

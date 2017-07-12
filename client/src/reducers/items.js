@@ -7,6 +7,20 @@ export default (state = [], action) => {
 				...state,
 				Object.assign({}, action.item)
 			];
+		case 'COMPLETE_ITEM':
+		debugger;
+			return {
+				items: state.items.map((item) => {
+					if (item.id === action.itemId) {
+						debugger;
+          	return Object.assign({}, item, {
+            	done: true,
+          	});
+        	} else {
+          	return item;
+        	}
+				})
+			}
 		case 'UPDATE_ITEM':
 			return {
 				items: state.items.map((item) => {
@@ -20,10 +34,10 @@ export default (state = [], action) => {
         	}
 				})
 			}
-		case 'REMOVE_ITEM':
+		case 'DESTROY_ITEM':
 			return {
 				items: state.items.filter((item) =>
-					item.id !== action.id)
+					item.id !== action.itemId)
 			}
     default:
     	return state;

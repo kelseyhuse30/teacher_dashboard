@@ -16,9 +16,9 @@ export function fetchItems() {
 }
 
 export function addItem (item) {
-  return function(dispatch) {
+  return dispatch => {
     dispatch({type: 'ADD_ITEM', item})
-    return fetch('http://localhost:3001/items', {
+    return fetch('/api/items', {
       method: 'post',
       body: JSON.stringify({item})
     }).then(res => {
@@ -29,16 +29,27 @@ export function addItem (item) {
  
 }
 
-export function removeItem (item) {
+export function completeItem(itemId) {
+  debugger;
+  return dispatch => {
+    dispatch({type: 'COMPLETE_ITEM', itemId})
+    return fetch(`/api/items/${itemId}`, {
+      method: 'patch',
+      body: { 'done' : true }
+    })
+  }
+}
+
+export function destroyItem (itemId) {
   return {
-    type: 'REMOVE_ITEM',
-    item
+    type: 'DESTROY_ITEM',
+    itemId
   }
 }
 
 export function updateItem(item) {
   return dispatch => {
-    fetch(`http://localhost:3001/items/${item.id}`,
+    fetch(`/api/items/${item.id}`,
     {
       method: "PUT",
       headers: {

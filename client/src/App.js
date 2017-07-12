@@ -4,8 +4,8 @@ import { ClassDashboard } from './components/ClassDashboard';
 import { About } from './components/About';
 import { Help } from './components/Help';
 import { NavBar } from './components/NavBar';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 export class App extends Component {

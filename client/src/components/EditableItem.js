@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ConnectedItemForm } from './ItemForm';
-import { Item } from './Item';
+import { ConnectedItem } from './Item';
 
 export class EditableItem extends Component {
 	state = {
@@ -41,12 +41,12 @@ export class EditableItem extends Component {
 			);
 		} else {
 			return (
-				<Item
+				<ConnectedItem
 					id={this.props.id}
 					description={this.props.description}
 					item_type={this.props.item_type}
+					done={this.props.done}
 					onEditClick={this.handleEditClick}
-					onTrashClick={this.props.onTrashClick}
 				/>
 			);
 		}

@@ -17,6 +17,7 @@ class EditableItemList extends Component {
 				id={item.id}
 				description={item.description}
 				item_type={item.item_type}
+				done={item.done}
 				onFormSubmit={this.props.onFormSubmit}
 				onTrashClick={this.props.onTrashClick}
 			/>
