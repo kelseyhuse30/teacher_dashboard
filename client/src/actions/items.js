@@ -1,33 +1,37 @@
 import fetch from 'isomorphic-fetch';
 
 export function fetchItems() {
-
-  return function(dispatch){
-    dispatch({type: 'LOADING_ITEMS'})
-    return fetch('http://localhost:3001/items')
-      .then(res => {
+  return (dispatch) => {
+    return fetch('/api/items', {
+      accept: 'application/json',
+    }).then(res => {
         return res.json()
       }).then(responseJson => {
-        dispatch({type: 'FETCH_ITEMS', items: responseJson.items})
+        dispatch({
+          type: 'FETCH_ITEMS',
+          items: responseJson
+        })
     })
-    // return items;
   }
 }
 
-export function addItem (id, description, type, done) {
-  return {
-    type: 'ADD_ITEM',
-    id,
-    description,
-    type,
-    done
+export function addItem (item) {
+  return function(dispatch) {
+    dispatch({type: 'ADD_ITEM', item})
+    return fetch('http://localhost:3001/items', {
+      method: 'post',
+      body: JSON.stringify({item})
+    }).then(res => {
+      //get real ID of item here
+      debugger;
+    })
   }
+ 
 }
 
-export function removeItem (id, item) {
+export function removeItem (item) {
   return {
     type: 'REMOVE_ITEM',
-    id,
     item
   }
 }

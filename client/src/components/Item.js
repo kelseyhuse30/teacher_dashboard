@@ -22,7 +22,7 @@ export class Item extends Component {
       <div className='ui centered card'>
         <div className='content'>
           <div className='header'>
-            {this.props.type}
+            {this.props.item_type}
           </div>
           <div className='meta'>
             {this.props.description}
@@ -46,7 +46,7 @@ export class Item extends Component {
         	className='ui bottom attached green basic button'
         	onClick={this.handleDoneClick}
         >
-         	{this.state.done ? <i className='checkmark icon' /> : "Done" }
+         	{this.props.done ? <i className='checkmark icon' /> : "Done" }
         </div>
       </div>
     );

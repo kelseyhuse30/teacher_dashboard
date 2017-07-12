@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ItemForm } from './ItemForm';
+import { ConnectedItemForm } from './ItemForm';
 import { Item } from './Item';
 
 export class EditableItem extends Component {
@@ -31,10 +31,10 @@ export class EditableItem extends Component {
 	render() {
 		if (this.state.editFormOpen) {
 			return (
-				<ItemForm
+				<ConnectedItemForm
 					id={this.props.id}
 					description={this.props.description}
-					type={this.props.type}
+					item_type={this.props.item_type}
 					onFormSubmit={this.handleSubmit}
 					onFormClose={this.handleFormClose}
 				/>
@@ -44,7 +44,7 @@ export class EditableItem extends Component {
 				<Item
 					id={this.props.id}
 					description={this.props.description}
-					type={this.props.type}
+					item_type={this.props.item_type}
 					onEditClick={this.handleEditClick}
 					onTrashClick={this.props.onTrashClick}
 				/>

@@ -7,26 +7,16 @@ import { NavBar } from './components/NavBar';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import * as actions from './actions/items.js';
 
-class App extends Component {
-
-  componentDidMount() {
-    if (this.props.items.length === 0) {
-      console.log('in component did mount')
-      this.props.actions.fetchItems()
-    }
-  }
+export class App extends Component {
 
   render() {
-
-
     return (
       <Router>
         <div className="App">
           <NavBar/>
+          <h1 className="ui dividing centered header">Class Dashboard</h1>
           <div id="main" className="main ui">
-            <h1 className="ui dividing centered header">Class Dashboard</h1>
             <Switch>
               <Route exact path="/" component={ClassDashboard}/>
               <Route path="/about" component={About}/>
@@ -38,14 +28,3 @@ class App extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  console.log('in map state to props')
-  return {items: state.items}
-}
-
-function mapDispatchToProps(dispatch) {
-  return {actions: bindActionCreators(actions, dispatch)}
-}
-
-export const WrapperApp = connect(mapStateToProps, mapDispatchToProps)(App);

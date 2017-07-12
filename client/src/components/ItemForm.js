@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addItem } from '../actions/items';
 
-export class ItemForm extends Component {
+
+class ItemForm extends Component {
 	state = {
 		description: this.props.description || '',
-		type: this.props.type || '',
+		type: this.props.item_type || '',
+    id: this.props.id || '',
 	};
 
 	handleFieldChange = (e) => {
@@ -14,11 +19,11 @@ export class ItemForm extends Component {
 	};
 
 	handleSubmit = () => {
-		this.props.onFormSubmit({
-			id: this.props.id,
-			description: this.state.description,
-			type: this.state.type,
-		});
+	 if (this.props.id) {
+      this.props.updateItem(this.state);
+    } else {
+      this.props.addItem(this.state);
+		};
 	};
 
 	render() {
@@ -39,7 +44,7 @@ export class ItemForm extends Component {
               <label>Type</label>
               <input
               	type='text'
-              	value={this.props.type}
+              	value={this.props.item_type}
               	onChange={this.handleFieldChange}
               />
             </div>
@@ -63,3 +68,11 @@ export class ItemForm extends Component {
     );
 	}
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    addItem,
+  }, dispatch);
+};
+
+export const ConnectedItemForm = connect(null, mapDispatchToProps)(ItemForm);

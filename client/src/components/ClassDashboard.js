@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
-import { EditableItemList } from './EditableItemList';
+import { ConnectedEditableItemList } from './EditableItemList';
 import { ToggleableItemForm } from './ToggleableItemForm';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 export class ClassDashboard extends Component {
-  state = {
-    items: [
-      {
-        description: "Complete Page 7",
-        type: "journal",
-      },
-      {
-        description: "Scratch Surprise",
-        type: "project",
-      },
-      {
-        description: "Scratch Card Packs",
-        type: "bonus",
-      },
-    ]
-  };
 
   handleCreateFormSubmit = (item) => {
     this.createItem(item);  
@@ -32,43 +18,11 @@ export class ClassDashboard extends Component {
     this.deleteItem(itemId);
   };
 
-  createItem = (item) => {
-    const newItem = {
-      description: item.description,
-      type: item.type,
-    }
-    this.setState({
-      items: this.state.items.concat(newItem),
-    })
-  };
-
-  updateItem = (attrs) => {
-    this.setState({
-      items: this.state.items.map((item) => {
-        if (item.id === attrs.id) {
-          return Object.assign({}, item, {
-            description: attrs.description,
-            type: attrs.type,
-          });
-        } else {
-          return item;
-        }
-      }),
-    });
-  };
-
-  deleteItem = (itemId) => {
-    this.setState({
-      items: this.state.items.filter(i => i.id !== itemId),
-    });
-  };
-
   render() {
     return (
       <div className='ui six column centered grid'>
         <div className='column six wide'>
-          <EditableItemList
-            items={this.state.items}
+          <ConnectedEditableItemList
             onFormSubmit={this.handleEditFormSubmit}
             onTrashClick={this.handleTrashClick}
           />

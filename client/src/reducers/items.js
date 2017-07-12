@@ -1,11 +1,11 @@
-import uuidV4  from 'uuid/v4';
-
-export default (state = { items: [] }, action) => {
+export default (state = [], action) => {
 	switch (action.type) {
+		case 'FETCH_ITEMS':
+			return action.items
 		case 'ADD_ITEM':
 			return [
 				...state,
-				Object.assign({}, action.item, { id: uuidV4() })
+				Object.assign({}, action.item)
 			];
 		case 'UPDATE_ITEM':
 			return {

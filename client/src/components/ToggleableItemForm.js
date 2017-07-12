@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ItemForm } from './ItemForm';
+import { ConnectedItemForm } from './ItemForm';
 
 export class ToggleableItemForm extends Component {
   state = {
@@ -17,12 +17,12 @@ export class ToggleableItemForm extends Component {
   handleFormSubmit = (item) => {
     this.props.onFormSubmit(item);
     this.setState({ isOpen: false });
-  };
+  }
 
   render() {
     if (this.state.isOpen) {
       return (
-        <ItemForm
+        <ConnectedItemForm
           onFormSubmit={this.handleFormSubmit}
           onFormClose={this.handleFormClose}
         />
