@@ -24,6 +24,6 @@ items = Item.create([
 	}
 ])
 
-Timer.create({
+timers = Timer.create(
 	seconds_remaining: 0
-	})
+)

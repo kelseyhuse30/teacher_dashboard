@@ -1,27 +1,50 @@
 import React, { Component } from 'react';
-import { Timer } from '../components/Timer';
-import { getTimer, updateTimer, stopTimer, startTimer } from '../actions/timer';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-//import helpers from '../helpers';
+import Timer from '../components/Timer';
+import { getTimer, updateTimer, resetTimer } from '../actions/timer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import TimerForm from '../components/TimerForm';
 
 class TimerContainer extends Component {	
 	componentDidMount() {
-    this.props.getTimer();
-    //setInterval(this.props.getTimer, 5000);
+    this.interval = setInterval(this.tick, 1000);
+  };
+
+  tick = () => {
+    updateTimer({time_remaining: this.props.time_remaining - 1});
+    if (this.props.time_remaining <= 0) {
+      clearInterval(this.interval);
+    }
   };
 
   handleDoneClick = () => {
-    stopTimer();
+    this.stopTimer();
+  };
+
+  stopTimer = () => {
+    clearInterval(this.interval);
+  };
+
+  startTimer = () => {
+    this.interval = setInterval(this.tick, 1000);
   }
 
   render() {
-		return (
-      <Timer
-				timer={this.props.timer}
-        handleDoneClick={this.handleDoneClick}
-			/>
-    )
+    if (this.props.form_open) {
+      return (
+        <TimerForm
+          time_remaining={this.props.time_remaining}
+        />
+      )
+    } else {
+  		return (
+        <Timer
+  				time_remaining={this.props.time_remaining}
+          handleStopClick={this.handleDoneClick}
+          handleStartClick={this.handleStartClick}
+  			/>
+      )
+    }
 	}
 }
 
@@ -30,15 +53,15 @@ const mapDispatchToProps = (dispatch) => {
   	{
   		getTimer,
       updateTimer,
-      stopTimer,
-      startTimer
+      resetTimer,
   	},
   	dispatch);
 };
 
 const mapStateToProps = (state) => {
 	return {
-  	timer: state.timer
+  	time_remaining: state.timer,
+    form_open: state.timerForm.isOpen
 	}
 };
 

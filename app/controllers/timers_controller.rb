@@ -23,7 +23,7 @@ class TimersController < ApplicationController
 	private
 
 	def timer_params
-		params.require(:timer).permit(:elasped, :time_limit)
+		params.permit(:seconds_remaining)
 	end
 
 end

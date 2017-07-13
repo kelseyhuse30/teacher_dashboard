@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateTimer, resetTimer } from '../actions/timer';
+import { openTimerForm } from '../actions/timerForm'
 
 export class Timer extends Component {
+
+  handleEditClick = () => {
+    console.log(this.props)
+    this.props.openTimerForm()
+  }
+
   render() {
-
-    const timer = this.props.timer
-
     return (
       <div className='ui centered card'>
         <div className='content'>
@@ -12,11 +19,11 @@ export class Timer extends Component {
             Timer Countdown
           </div>
           <div className='description'>
-            {timer.time_limit}
+            {this.props.time_remaining}
           </div>
           <span
           className='right floated edit icon'
-          onClick={this.props.handleEditClick}
+          onClick={(e) => this.handleEditClick()}
         >
           <i className='edit icon' />
         </span>
@@ -37,3 +44,13 @@ export class Timer extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    updateTimer,
+    resetTimer,
+    openTimerForm,
+  }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(Timer);
