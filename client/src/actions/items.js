@@ -4,7 +4,8 @@ export function fetchItems() {
   return (dispatch) => {
     return fetch('/api/items', {
       accept: 'application/json',
-    }).then(res => {
+    }).then(
+        res => {
         return res.json()
       }).then(responseJson => {
         dispatch({
@@ -17,33 +18,53 @@ export function fetchItems() {
 
 export function addItem (item) {
   return dispatch => {
-    dispatch({type: 'ADD_ITEM', item})
     return fetch('/api/items', {
-      method: 'post',
+      method: 'POST',
       body: JSON.stringify({item})
     }).then(res => {
-      //get real ID of item here
-      debugger;
+      return res.json()
+    }).then(responseJson => {
+      dispatch({
+        type: 'ADD_ITEM',
+        item: responseJson
+      })
     })
   }
- 
 }
 
 export function completeItem(itemId) {
-  debugger;
-  return dispatch => {
-    dispatch({type: 'COMPLETE_ITEM', itemId})
+  return (dispatch) => {
     return fetch(`/api/items/${itemId}`, {
-      method: 'patch',
-      body: { 'done' : true }
-    })
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({ done: true })
+    }).then(
+      dispatch({
+        type: 'COMPLETE_ITEM',
+        itemId: itemId
+      })
+    )
   }
 }
 
 export function destroyItem (itemId) {
-  return {
-    type: 'DESTROY_ITEM',
-    itemId
+  return (dispatch) => {
+    return fetch(`/api/items/${itemId}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'DELETE',
+      body: JSON.stringify({ done: true })
+    }).then(
+      dispatch({
+        type: 'DESTROY_ITEM',
+        itemId: itemId
+      })
+    )
   }
 }
 

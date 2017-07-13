@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ConnectedEditableItemList } from './EditableItemList';
-import { ToggleableItemForm } from './ToggleableItemForm';
+import { ConnectedToggleableItemForm } from './ToggleableItemForm';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 
@@ -26,7 +26,7 @@ export class ClassDashboard extends Component {
             onFormSubmit={this.handleEditFormSubmit}
             onTrashClick={this.handleTrashClick}
           />
-          <ToggleableItemForm
+          <ConnectedToggleableItemForm
             onFormSubmit={this.handleCreateFormSubmit}
           />
         </div>

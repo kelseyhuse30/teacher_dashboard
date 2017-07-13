@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { EditableItem } from './EditableItem';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { fetchItems } from '../actions/items.js';
 
 class EditableItemList extends Component {
@@ -31,7 +31,7 @@ class EditableItemList extends Component {
 	}
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     items: state.items
   }

@@ -1,38 +1,26 @@
 import React, { Component } from 'react';
 import { ConnectedItemForm } from './ItemForm';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { openForm } from '../actions/itemForm';
 
 export class ToggleableItemForm extends Component {
-  state = {
-    isOpen: false,
-  };
 
-  handleFormOpen = () => {
-    this.setState({ isOpen: true });
-  };
-
-  handleFormClose = () => {
-    this.setState({ isOpen: false });
-  };
-
-  handleFormSubmit = (item) => {
-    this.props.onFormSubmit(item);
-    this.setState({ isOpen: false });
+  handleFormOpen = (event) => {
+    this.props.openForm();
   }
 
   render() {
-    if (this.state.isOpen) {
+    if (this.props.isOpen) {
       return (
-        <ConnectedItemForm
-          onFormSubmit={this.handleFormSubmit}
-          onFormClose={this.handleFormClose}
-        />
+        <ConnectedItemForm/>
       );
     } else {
       return (
         <div className='ui basic content center aligned segment'>
           <button
             className='ui basic button icon'
-            onClick={this.handleFormOpen}
+            onClick={this.handleFormOpen()}
           >
             <i className='plus icon' />
           </button>
@@ -41,3 +29,17 @@ export class ToggleableItemForm extends Component {
     }
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    openForm,
+  }, dispatch);
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isOpen: state.isOpen
+  }
+}
+
+export const ConnectedToggleableItemForm = connect(mapStateToProps, mapDispatchToProps)(ToggleableItemForm);

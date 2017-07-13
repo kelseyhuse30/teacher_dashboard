@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20170709003740) do
     t.string "description"
     t.string "item_type"
     t.boolean "done", default: false
+    t.boolean "open", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

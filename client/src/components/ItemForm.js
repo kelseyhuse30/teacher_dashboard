@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addItem } from '../actions/items';
+import { closeForm } from '../actions/itemForm';
 
 
 class ItemForm extends Component {
@@ -24,7 +25,12 @@ class ItemForm extends Component {
     } else {
       this.props.addItem(this.state);
 		};
+    this.props.closeForm();
 	};
+
+  handleFormClose = (event) => {
+    this.props.closeForm();
+  };
 
 	render() {
 		const submitText = this.props.id ? 'Update' : 'Create';
@@ -57,7 +63,7 @@ class ItemForm extends Component {
               </button>
               <button
               	className='ui basic red button'
-              	onClick={this.props.onFormClose}
+              	onClick={this.handleFormClose()}
               >
                 Cancel
               </button>
@@ -72,6 +78,7 @@ class ItemForm extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     addItem,
+    closeForm
   }, dispatch);
 };
 
