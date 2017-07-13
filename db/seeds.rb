@@ -23,3 +23,7 @@ items = Item.create([
 		item_type: "bonus"
 	}
 ])
+
+Timer.create({
+	seconds_remaining: 0
+	})

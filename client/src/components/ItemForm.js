@@ -1,39 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addItem } from '../actions/items';
+import { addItem, updateItem } from '../actions/items';
+import { setEditId } from '../actions/setEditId';
 import { closeForm } from '../actions/itemForm';
 
 
 class ItemForm extends Component {
-	state = {
-		description: this.props.description || '',
-		type: this.props.item_type || '',
-    id: this.props.id || '',
-	};
+  constructor(props) {
+    super(props);
 
-	handleFieldChange = (e) => {
-		const { name, value } = e.target;
-		this.setState({
-			[name]: value
-		})
-	};
+    this.state = {
+      description: this.props.item.description || '',
+      item_type: this.props.item.item_type || ''
+    }
+  }
 
-	handleSubmit = () => {
-	 if (this.props.id) {
-      this.props.updateItem(this.state);
+  componentWillMount = () => {
+    if (this.state.editedItem) {
+      console.log("get item data");
+    }
+  }
+
+  handleSubmit = () => {
+    if (this.props.item.id) {
+      this.props.updateItem(this.props.item.id, this.state)
+      this.props.setEditId(null)
     } else {
-      this.props.addItem(this.state);
-		};
-    this.props.closeForm();
-	};
+      this.props.addItem(this.state)
+      this.handleClose()
+    }
+  }
 
-  handleFormClose = (event) => {
-    this.props.closeForm();
-  };
+  handleClose = () => {
+    this.props.closeForm()
+    this.props.setEditId(null)
+  }
 
 	render() {
-		const submitText = this.props.id ? 'Update' : 'Create';
 		return (
       <div className='ui centered card'>
         <div className='content'>
@@ -42,28 +46,28 @@ class ItemForm extends Component {
               <label>Description</label>
               <input
               	type='text'
-              	value={this.props.description}
-              	onChange={this.handleFieldChange}
+              	value={this.state.description}
+              	onChange={(e) => this.setState({description: e.target.value})}
               />
             </div>
             <div className='field'>
               <label>Type</label>
               <input
               	type='text'
-              	value={this.props.item_type}
-              	onChange={this.handleFieldChange}
+              	value={this.state.item_type}
+              	onChange={(e) => this.setState({item_type: e.target.value})}
               />
             </div>
             <div className='ui two bottom attached buttons'>
               <button
               	className='ui basic blue button'
-              	onClick={this.handleSubmit}
+              	onClick={(e) => this.handleSubmit()}
               >
-                {submitText}
+                Submit
               </button>
               <button
               	className='ui basic red button'
-              	onClick={this.handleFormClose()}
+              	onClick={(e) => this.handleClose()}
               >
                 Cancel
               </button>
@@ -78,8 +82,16 @@ class ItemForm extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     addItem,
-    closeForm
+    closeForm,
+    updateItem,
+    setEditId,
   }, dispatch);
 };
 
-export const ConnectedItemForm = connect(null, mapDispatchToProps)(ItemForm);
+const mapStateToProps = (state) => {
+  return {
+    editedItem: state.editedItem
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemForm);

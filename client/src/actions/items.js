@@ -16,11 +16,50 @@ export function fetchItems() {
   }
 }
 
-export function addItem (item) {
+export function openEditForm(itemId) {
+  return (dispatch) => {
+    return fetch(`/api/items/${itemId}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({ open: true })
+    }).then(
+      dispatch({
+        type: 'OPEN_ITEM_EDIT_FORM',
+        itemId: itemId
+      })
+    )
+  }
+}
+
+export function closeEditForm(itemId) {
+  return (dispatch) => {
+    return fetch(`/api/items/${itemId}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({ open: false })
+    }).then(
+      dispatch({
+        type: 'CLOSE_ITEM_EDIT_FORM',
+        itemId: itemId
+      })
+    )
+  }
+}
+
+export function addItem(item) {
   return dispatch => {
     return fetch('/api/items', {
       method: 'POST',
-      body: JSON.stringify({item})
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item)
     }).then(res => {
       return res.json()
     }).then(responseJson => {
@@ -50,7 +89,7 @@ export function completeItem(itemId) {
   }
 }
 
-export function destroyItem (itemId) {
+export function destroyItem(itemId) {
   return (dispatch) => {
     return fetch(`/api/items/${itemId}`, {
       headers: {
@@ -68,18 +107,22 @@ export function destroyItem (itemId) {
   }
 }
 
-export function updateItem(item) {
+export function updateItem(itemId, fields) {
+  console.log("i'm in the update action")
   return dispatch => {
-    fetch(`/api/items/${item.id}`,
+    fetch(`/api/items/${itemId}`,
     {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(item)
+      body: JSON.stringify(fields)
     }).then(res => res.json())
       .then(responseJson => {
-        dispatch({type: 'UPDATE_ITEM', item: responseJson})
+        dispatch({
+          type: 'UPDATE_ITEM',
+          item: responseJson
+        })
       }
     )
   }

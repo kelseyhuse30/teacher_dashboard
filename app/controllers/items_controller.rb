@@ -16,12 +16,7 @@ class ItemsController < ApplicationController
 	end
 
 	def create
-		item = Item.new(item_params)
-		render json: item
-	end
-
-	def show
-		item = Item.find(item_params)
+		item = Item.create(item_params)
 		render json: item
 	end
 
@@ -33,7 +28,7 @@ class ItemsController < ApplicationController
 	private
 
 	def item_params
-		params.require(:item).permit(:id, :description, :type, :done)
+		params.permit(:id, :description, :item_type, :done)
 	end
 
 end

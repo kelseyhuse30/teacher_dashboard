@@ -16,13 +16,14 @@ ActiveRecord::Schema.define(version: 20170709003740) do
     t.string "description"
     t.string "item_type"
     t.boolean "done", default: false
-    t.boolean "open", default: false
+    t.boolean "form_open", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "timers", force: :cascade do |t|
-    t.integer "time_left"
+    t.integer "time_remaining", default: 0
+    t.boolean "form_open", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

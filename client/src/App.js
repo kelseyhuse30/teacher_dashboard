@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { ClassDashboard } from './components/ClassDashboard';
-import { About } from './components/About';
-import { Help } from './components/Help';
+import { Questions } from './components/Questions';
+import { Instructions } from './components/Instructions';
 import { NavBar } from './components/NavBar';
 // import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
@@ -19,8 +19,8 @@ export class App extends Component {
           <div id="main" className="main ui">
             <Switch>
               <Route exact path="/" component={ClassDashboard}/>
-              <Route path="/about" component={About}/>
-              <Route path="/help" component={Help}/>
+              <Route path="/questions" component={Questions}/>
+              <Route path="/instructions" component={Instructions}/>
             </Switch>
           </div>
         </div>

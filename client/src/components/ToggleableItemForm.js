@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import { ConnectedItemForm } from './ItemForm';
+import ItemForm from './ItemForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { openForm } from '../actions/itemForm';
 
 export class ToggleableItemForm extends Component {
 
-  handleFormOpen = (event) => {
+  handleFormOpen = () => {
     this.props.openForm();
   }
 
   render() {
     if (this.props.isOpen) {
       return (
-        <ConnectedItemForm/>
+        <ItemForm/>
       );
     } else {
       return (
         <div className='ui basic content center aligned segment'>
           <button
             className='ui basic button icon'
-            onClick={this.handleFormOpen()}
+            onClick={(e) => this.handleFormOpen()}
           >
             <i className='plus icon' />
           </button>
@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    isOpen: state.isOpen
+    isOpen: state.itemForm.isOpen
   }
 }
 

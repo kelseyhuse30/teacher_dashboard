@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :description
       t.string :item_type
       t.boolean :done, default: false
-      t.boolean :open, default: false
+      t.boolean :form_open, default: false
 
       t.timestamps
     end

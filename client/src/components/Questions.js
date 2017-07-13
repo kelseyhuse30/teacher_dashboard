@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-export class Help extends Component {
+export class Questions extends Component {
 	render() {
 		return (
-			<h3> Help Page </h3>
+			<h3> Questions Page </h3>
 		)
 	}
 }
