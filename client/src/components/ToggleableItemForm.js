@@ -2,18 +2,33 @@ import React, { Component } from 'react';
 import ItemForm from './ItemForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { openForm } from '../actions/itemForm';
+import { addItem } from '../actions/items';
+import { openNewItemForm, closeNewItemForm } from '../actions/newItemForm';
 
-export class ToggleableItemForm extends Component {
+class ToggleableItemForm extends Component {
 
   handleFormOpen = () => {
-    this.props.openForm();
-  }
+    this.props.openNewItemForm();
+  };
+
+  handleSubmit = (values) => {
+    console.log(values)
+    //this.props.addItem(values);
+    console.log('closing form');
+    this.props.closeNewItemForm();
+  };
+
+  handleCancel = () => {
+    this.props.closeNewItemForm();
+  };
 
   render() {
     if (this.props.isOpen) {
       return (
-        <ItemForm/>
+        <ItemForm
+          handleSubmit={this.handleSubmit}
+          handleCancel={this.handleCancel}
+        />
       );
     } else {
       return (
@@ -32,14 +47,16 @@ export class ToggleableItemForm extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    openForm,
+    openNewItemForm,
+    closeNewItemForm,
+    addItem
   }, dispatch);
 };
 
 const mapStateToProps = (state) => {
   return {
-    isOpen: state.itemForm.isOpen
+    isOpen: state.newItemForm.isOpen
   }
 }
 
-export const ConnectedToggleableItemForm = connect(mapStateToProps, mapDispatchToProps)(ToggleableItemForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ToggleableItemForm);

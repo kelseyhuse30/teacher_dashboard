@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
 	private
 
 	def item_params
-		params.permit(:id, :description, :item_type, :done)
+		params.permit(:id, :description, :item_type, :done, :form_open)
 	end
 
 end

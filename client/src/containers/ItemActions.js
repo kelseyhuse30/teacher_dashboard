@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { destroyItem, openEditForm } from '../actions/items';
-import { setEditId } from '../actions/setEditId';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 
@@ -11,7 +10,6 @@ class ItemActions extends Component {
 	};
 
 	handleEditClick = () => {
-		this.props.setEditId(this.props.itemId)
 		this.props.openEditForm(this.props.itemId)
 	};
 
@@ -39,7 +37,6 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
   	{
   		destroyItem,
-  		setEditId,
   		openEditForm,
   	},
   	dispatch);

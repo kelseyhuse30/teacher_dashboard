@@ -5,7 +5,8 @@ import {createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers'
 import './index.css';
-import { App } from './App';
+import App from './App';
+import { getCurrUserFromBrowser } from './actions/loginForm';
 import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(
@@ -15,6 +16,8 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 )
+
+store.dispatch(getCurrUserFromBrowser())
 
 ReactDOM.render(
 	<Provider store={store}>

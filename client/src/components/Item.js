@@ -12,7 +12,7 @@ export class Item extends Component {
 
 	render() {
 
-    const item = this.props.item
+    const { item } = this.props
 
     return (
       <div key={item.id} className='ui centered card'>

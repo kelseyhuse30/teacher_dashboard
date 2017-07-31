@@ -27,13 +27,24 @@ class TimerContainer extends Component {
 
   startTimer = () => {
     this.interval = setInterval(this.tick, 1000);
-  }
+  };
+
+  submit = (values) => {
+    console.log("submit the timer form");
+    console.log(values);
+  };
+
+  cancel = () => {
+    console.log("cancel the timer form");
+  };
 
   render() {
     if (this.props.form_open) {
       return (
         <TimerForm
           time_remaining={this.props.time_remaining}
+          handleSubmit={this.submit}
+          handleCancel={this.cancel}
         />
       )
     } else {

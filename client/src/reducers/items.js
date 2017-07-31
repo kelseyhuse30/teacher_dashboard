@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
 		case 'OPEN_ITEM_EDIT_FORM':
 			return state.map((item) => {
 					if (item.id === action.itemId) {
-          	return { ...item, open: true }
+          	return { ...item, form_open: true }
         	} else {
           	return item;
         	}
@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
 		case 'CLOSE_ITEM_EDIT_FORM':
 			return state.map((item) => {
 					if (item.id === action.itemId) {
-          	return { ...item, open: false }
+          	return { ...item, form_open: false }
         	} else {
           	return item;
         	}

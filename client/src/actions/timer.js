@@ -18,7 +18,6 @@ export function getTimer() {
 }
 
 export function updateTimer(attrs) {
-	console.log(attrs)
   return (dispatch) =>{
   	return fetch('api/timers/1', {
   		headers: {

@@ -2,46 +2,40 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addItem, updateItem } from '../actions/items';
-import { setEditId } from '../actions/setEditId';
-import { closeForm } from '../actions/itemForm';
-
+import { closeNewItemForm } from '../actions/newItemForm';
 
 class ItemForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      description: this.props.item.description || '',
-      item_type: this.props.item.item_type || ''
+    if (this.props.item !== undefined) {
+      this.state = {
+        description: props.item.description,
+        item_type: props.item.item_type
+      }
+    } else {
+      this.state = {
+        description: '',
+        item_type: ''
+      }
     }
   }
 
-  componentWillMount = () => {
-    if (this.state.editedItem) {
-      console.log("get item data");
-    }
-  }
-
-  handleSubmit = () => {
-    if (this.props.item.id) {
+  handleOnSubmit = (event) => {
+    event.preventDefault();
+    if (this.props.item !== undefined) {
       this.props.updateItem(this.props.item.id, this.state)
-      this.props.setEditId(null)
     } else {
       this.props.addItem(this.state)
-      this.handleClose()
+      this.props.closeNewItemForm();
     }
-  }
-
-  handleClose = () => {
-    this.props.closeForm()
-    this.props.setEditId(null)
   }
 
 	render() {
 		return (
       <div className='ui centered card'>
         <div className='content'>
-          <div className='ui form'>
+          <form className='ui form' onSubmit={(event) => this.handleOnSubmit(event)}>
             <div className='field'>
               <label>Description</label>
               <input
@@ -61,7 +55,7 @@ class ItemForm extends Component {
             <div className='ui two bottom attached buttons'>
               <button
               	className='ui basic blue button'
-              	onClick={(e) => this.handleSubmit()}
+              	type='submit'
               >
                 Submit
               </button>
@@ -72,7 +66,7 @@ class ItemForm extends Component {
                 Cancel
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     );
@@ -82,16 +76,9 @@ class ItemForm extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     addItem,
-    closeForm,
     updateItem,
-    setEditId,
+    closeNewItemForm
   }, dispatch);
 };
 
-const mapStateToProps = (state) => {
-  return {
-    editedItem: state.editedItem
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ItemForm);
+export default connect(null, mapDispatchToProps)(ItemForm);

@@ -18,11 +18,12 @@
   font-size: large;
 }
 
-#main {
-  background-color: #95B8D1;
-}
-
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.login {
+  margin: 3px;
+  width: 300px;
 }

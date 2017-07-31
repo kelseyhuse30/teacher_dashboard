@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ItemsListContainer from '../containers/ItemsListContainer';
 import TimerContainer from '../containers/TimerContainer';
-import { ConnectedToggleableItemForm } from './ToggleableItemForm';
+import ToggleableItemForm from './ToggleableItemForm';
 
 export class ClassDashboard extends Component {
   render() {
@@ -12,7 +12,7 @@ export class ClassDashboard extends Component {
         </div>
         <div className='four wide column'>
           <ItemsListContainer/>
-          <ConnectedToggleableItemForm
+          <ToggleableItemForm
             onFormSubmit={this.handleCreateFormSubmit}
           />
         </div>

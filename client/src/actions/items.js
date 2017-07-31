@@ -24,7 +24,7 @@ export function openEditForm(itemId) {
         'Content-Type': 'application/json'
       },
       method: 'PATCH',
-      body: JSON.stringify({ open: true })
+      body: JSON.stringify({ form_open: true })
     }).then(
       dispatch({
         type: 'OPEN_ITEM_EDIT_FORM',
@@ -42,7 +42,7 @@ export function closeEditForm(itemId) {
         'Content-Type': 'application/json'
       },
       method: 'PATCH',
-      body: JSON.stringify({ open: false })
+      body: JSON.stringify({ form_open: false })
     }).then(
       dispatch({
         type: 'CLOSE_ITEM_EDIT_FORM',
@@ -97,7 +97,7 @@ export function destroyItem(itemId) {
         'Content-Type': 'application/json'
       },
       method: 'DELETE',
-      body: JSON.stringify({ done: true })
+      body: JSON.stringify({ id: itemId })
     }).then(
       dispatch({
         type: 'DESTROY_ITEM',
@@ -108,15 +108,19 @@ export function destroyItem(itemId) {
 }
 
 export function updateItem(itemId, fields) {
-  console.log("i'm in the update action")
+  const fieldsToSend = fields;
+  fieldsToSend.form_open = false;
   return dispatch => {
+
+    console.log(JSON.stringify(fields))
     fetch(`/api/items/${itemId}`,
     {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(fields)
+      body: JSON.stringify(fieldsToSend)
+
     }).then(res => res.json())
       .then(responseJson => {
         dispatch({
