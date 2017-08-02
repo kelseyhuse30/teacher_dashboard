@@ -23,10 +23,20 @@ export const setCurrUser = (username) => {
 		}
 }
 
+export const removeCurrUser = () => {
+	localStorage.removeItem('username');
+	return {
+		type: 'REMOVE_CURR_USER',
+		payoad: false
+	}
+}
+
 export const getCurrUserFromBrowser = () => {
   const username = localStorage.getItem("username");
+  const userExist = !!username
 	return {
 		type: 'GET_CURR_USER',
-		payload: username
+		username: username,
+		redirectToRoot: (userExist ? true : false)
 	}
 }

@@ -8,7 +8,6 @@ export function getTimer() {
         res => {
         return res.json()
       }).then(responseJson => {
-      	console.log(responseJson)
         dispatch({
           type: 'GET_TIMER',
           time_remaining: responseJson.time_remaining
@@ -54,4 +53,46 @@ export function resetTimer() {
   		})
   	)
   }
+}
+
+export function pauseTimer() {
+  return (dispatch) =>{
+    return fetch('api/timers/1', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({paused: true})
+    }).then(
+      res => {
+        return res.json()
+      }).then(responseJson => {
+        dispatch({
+        type: 'PAUSE_TIMER',
+        paused: true
+      })
+    })
+  }
+}
+
+export function startTimer() {
+  return (dispatch) =>{
+    return fetch('api/timers/1', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({paused: false})
+    }).then(
+      res => {
+        return res.json()
+      }).then(responseJson => {
+        dispatch({
+        type: 'START_TIMER',
+        paused: false
+      })
+    })
+  } 
 }

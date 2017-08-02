@@ -5,8 +5,7 @@ import { setCurrUser } from '../actions/loginForm';
 import { Redirect } from 'react-router-dom';
 
 class LoginPage extends Component {
-  submit = (values) => {
-    const { username } = values
+  submit = (username) => {
     this.props.setCurrUser(username);
   }
   

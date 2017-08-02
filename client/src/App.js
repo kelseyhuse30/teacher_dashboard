@@ -6,6 +6,8 @@ import { Questions } from './components/Questions';
 import { Instructions } from './components/Instructions';
 import LoginPage from './containers/LoginPage';
 import { NavBar } from './components/NavBar';
+import { removeCurrUser } from './actions/loginForm';
+import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends Component {
@@ -13,15 +15,16 @@ class App extends Component {
     super(props);
 
     this.checkLogin = this.checkLogin.bind(this)
-  }
-
-  componentWillMount() {
-    //check 
+    this.logout = this.logout.bind(this)
   }
 
   checkLogin() {
     return this.props.username ? true : false;
   }
+
+  logout() {
+    this.props.removeCurrUser();
+  };
 
   render() {
     const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -43,7 +46,11 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar/>
+          <NavBar
+            logged_in={!!this.props.username}
+            handleLogOut={this.logout}
+            username={this.props.username}
+          />
           <h1 className="ui dividing centered header">Class Dashboard</h1>
           <div id="main" className="main ui">
             <Switch>
@@ -77,4 +84,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    removeCurrUser,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

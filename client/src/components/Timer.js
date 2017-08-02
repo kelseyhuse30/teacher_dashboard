@@ -7,11 +7,26 @@ import { openTimerForm } from '../actions/timerForm'
 export class Timer extends Component {
 
   handleEditClick = () => {
-    console.log(this.props)
     this.props.openTimerForm()
   }
 
   render() {
+    let button = null;
+    if (this.props.paused) {
+      button = <div
+            className='ui bottom attached green basic button'
+            onClick={this.props.handleStartClick}
+          >
+            Start
+          </div>
+    } else {
+      button = <div
+        className='ui bottom attached red basic button'
+        onClick={this.props.handleStopClick}
+      >Stop
+      </div>
+    }
+  
     return (
       <div className='ui centered card'>
         <div className='content'>
@@ -34,12 +49,7 @@ export class Timer extends Component {
           <i className='trash icon' />
         </span>
         </div>
-        <div
-          className='ui bottom attached red basic button'
-          onClick={this.props.handleStopClick}
-        >
-          Stop
-        </div>
+        {button}
       </div>
     );
   }

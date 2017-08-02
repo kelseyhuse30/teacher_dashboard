@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709003740) do
+ActiveRecord::Schema.define(version: 20170802201146) do
 
   create_table "items", force: :cascade do |t|
     t.string "description"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170709003740) do
     t.boolean "form_open", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "paused", default: false
   end
 
   create_table "user_items", force: :cascade do |t|
