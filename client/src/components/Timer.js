@@ -44,7 +44,7 @@ export class Timer extends Component {
         </span>
         <span
           className='right floated trash icon'
-          onClick={this.props.handleResetClick}
+          onClick={(e) => this.props.handleResetClick()}
         >
           <i className='trash icon' />
         </span>

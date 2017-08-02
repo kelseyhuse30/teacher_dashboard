@@ -54,6 +54,10 @@ class TimerContainer extends Component {
     this.stopTimer();
   }
 
+  handleResetClick = () => {
+    this.props.resetTimer();
+  }
+
   stopTimer = () => {
     clearInterval(this.interval);
     this.props.pauseTimer();
@@ -82,6 +86,7 @@ class TimerContainer extends Component {
   				time_remaining={this.props.time_remaining}
           handleStopClick={this.handleDoneClick}
           handleStartClick={this.handleStartClick}
+          handleResetClick={this.handleResetClick}
           paused={this.props.paused}
   			/>
       )
