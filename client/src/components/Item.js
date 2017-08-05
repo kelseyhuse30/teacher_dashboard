@@ -4,11 +4,35 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ItemActions from '../containers/ItemActions';
 import DoneButton from './DoneButton';
+import UpvoteButton from './UpvoteButton';
 
 export class Item extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      voteCount: 0
+    }
+  }
+
 	handleTrashClick = () => {
 		this.props.destroyItem(this.props.id);
 	};
+
+//from code review assessment
+  // handleUpvote = () => {
+  //   console.log('a')
+  //   fetch('/api/items', {
+  //     accept: 'application/json',
+  //   }).then(
+  //       res => {
+  //         console.log('b')
+  //       return res.json()
+  //     }).then(responseJson => {
+  //       console.log('c')
+  //   })
+  //     console.log('d')
+  // }
 
 	render() {
 
