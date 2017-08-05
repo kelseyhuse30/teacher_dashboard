@@ -25,5 +25,6 @@ items = Item.create([
 ])
 
 timers = Timer.create(
-	seconds_remaining: 0
+	time_remaining: 0,
+	paused: true
 )
